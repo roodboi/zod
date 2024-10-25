@@ -764,7 +764,14 @@ test("IP validation", () => {
   ];
   // no parameters check IPv4 or IPv6
   const ipSchema = z.string().ip();
-  expect(validIPs.every((ip) => ipSchema.safeParse(ip).success)).toBe(true);
+  expect(
+    validIPs.every((ip) => {
+      console.log(ip, "ttesting valid ip");
+      const result = ipSchema.safeParse(ip);
+      console.log(result);
+      return result.success;
+    })
+  ).toBe(true);
   expect(
     invalidIPs.every((ip) => ipSchema.safeParse(ip).success === false)
   ).toBe(true);
